@@ -8,3 +8,6 @@ Generated with xjc, basically using `./xjc.sh TR-03130eID-Server.xsd`. The xsd f
 
 ### eID-Client-Mock
 A fork of [Governikus/AusweisApp](https://github.com/Governikus/AusweisApp) with the security checks made in `StateCertificateDescriptionCheck` and `StateCheckCertificates` disabled. Diffs can be found [here](eID-Client-Mock/DIFF.md).
+
+### eID-Server-Mock
+A SOAP server that implements useID and getResult functions for an eService to read the data of an eID. It does not actually read any data and does something like a Man-in-the-Middle attack to an existing eID-Server. More on that [here](eID-Server-Mock/README.md).

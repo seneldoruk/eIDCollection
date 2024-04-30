@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<samlp:AuthnRequest AssertionConsumerServiceURL="https://www.eservice.bund.de/processResponse"
+	Destination="https://www.eid-service.bund.de/processRequest" ID="1234567890abcdef1234567890abcdef"
+	IssueInstant="2021-08-02T12:00:00Z" Version="2.0"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+	xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eid="http://bsi.bund.de/eID/">
+	<saml2:Issuer>https://www.eservice.bund.de</saml2:Issuer>
+	<samlp:Extensions>
+		<eid:EncryptedAuthnRequestExtension>
+			<xenc:EncryptedData Type="http://www.w3.org/2001/04/xmlenc#Element">
+				<xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc" />
+				<ds:KeyInfo>
+					<xenc:EncryptedKey>
+						<xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5" />
+						<xenc:CipherData>
+							<xenc:CipherValue>
+								RqsJKl9XTbZkxrj2d0o4TCgwAJhOTqZfzywOPO9Tj4Gwz4zPcnq15n+viEjKSp0l4MpwnKtm8OGx
+								3fP/RQyJkOCeGelcleB3iJJadDongQe5p0PEUiGrzP8sqm/SSqWnmYw7hroG1Xm61jGhE0ynVgdO
+								ac9kdw98qXdm8VtfzZM=
+							</xenc:CipherValue>
+						</xenc:CipherData>
+					</xenc:EncryptedKey>
+				</ds:KeyInfo>
+				<xenc:CipherData xmlns:xenc="http://www.w3.org/2001/04/xmlenc#">
+					<xenc:CipherValue>
+						Pyh3WvmaP3YKS+LfROIMuPKqZBjWcHn22JiH+uoPwKcw7n+4ySZlBKuK8sV84Nf1TR8ktllxJw26
+						W8E6T9W+3iDu4wH7Ai70lW2BLAAUcl4FYgnlDirkYbk+Wb84RQBhBw6yBcDi/0lnpPJjGMtMEPAf
+						wcqMJ0PQLQ+YgEN3wEbe+j/5rpJYL9ur1EDXpbySz9xFR9Tr+tqJVUe7kjyz5Xzya8h1Fl2J9FpC
+						eQY+zMfGKHiWCQ5yQR8zPB+SJcXzM66Z/cuozqgLoxgV09fqhq0l2gSnQJkK5lwDkc96JdNrhB+z
+						oHkOWdEq4ag1GN5j/M7qJ7vB0oWaOaTUUDldloQTqIuC2+SuvV9fnF/RuaK6L3LNJFWxXxR2kHpi
+						3AuKF1DmBS1dAUuwifn7wsAh8QZh+rs=
+					</xenc:CipherValue>
+				</xenc:CipherData>
+			</xenc:EncryptedData>
+		</eid:EncryptedAuthnRequestExtension>
+	</samlp:Extensions>
+</samlp:AuthnRequest>
