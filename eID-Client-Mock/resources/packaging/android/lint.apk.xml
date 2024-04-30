@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Unused resources.
+
+        Unused resources make applications larger and slow down builds.
+
+        Qt includes some resources like strings, which are seen by lint to be unused.
+    -->
+    <issue id="UnusedResources">
+        <ignore path="**/libs.xml" />
+        <ignore path="**/strings.xml" />
+    </issue>
+
+    <!-- Unused Exported service does not require permission.
+
+         Exported services (services which either set exported=true or contain
+         an intent-filter and do not specify exported=false) should define a
+         permission that an entity must have in order to launch the service or
+         bind to it. Without this, any application can use this service.
+
+         We decided to ignore this warning because we do not want to limit the
+         access to the service. Any application should be able to use the
+         service without additional barriers.
+    -->
+    <issue id="ExportedService">
+        <ignore path="AndroidManifest.xml" />
+    </issue>
+
+    <!-- AndroidGradlePluginVersion
+
+        The plugin version is set by Qt itself, so no need to warn us about an outdated version, since this has to be
+        updated in Qt itself.
+    -->
+    <issue id="AndroidGradlePluginVersion" severity="ignore" />
+
+    <!-- PrivateApi
+
+        Qt is using some private API, which we can't change, so ignore it.
+    -->
+    <issue id="PrivateApi">
+        <ignore path="**/QtActivityLoader.java" />
+    </issue>
+
+    <!-- DiscouragedApi
+
+        Qt is using some discouraged API. They are allowed and are not deprecated, but they may be unfit
+        for common use (e.g. due to slow performance or subtle behavior). which we can't change, so ignore it.
+    -->
+    <issue id="DiscouragedApi">
+        <ignore path="**/QtLoader.java" />
+    </issue>
+
+    <!-- TrustAllX509TrustManager
+
+        checkClientTrusted is empty, which could cause insecure network
+        traffic due to trusting arbitrary TLS/SSL certificates presented by peers.
+
+        This check looks for X509TrustManager implementations whose checkServerTrusted or
+        checkClientTrusted methods do nothing (thus trusting any certificate chain) which
+        could result in insecure network traffic caused by trusting arbitrary TLS/SSL
+        certificates presented by peers.
+    -->
+    <issue id="TrustAllX509TrustManager">
+        <ignore path="**/bcpkix-jdk15on-1.70.jar" />
+    </issue>
+</lint>

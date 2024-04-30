@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Unused resources.
+
+        Unused resources make applications larger and slow down builds.
+
+        Qt includes some resources like strings, which are seen by lint to be unused.
+    -->
+    <issue id="UnusedResources">
+        <ignore path="**/libs.xml" />
+        <ignore path="**/strings.xml" />
+    </issue>
+
+    <!-- AndroidGradlePluginVersion
+
+        The plugin version is set by Qt itself, so no need to warn us about an outdated version, since this has to be
+        updated in Qt itself.
+    -->
+    <issue id="AndroidGradlePluginVersion" severity="ignore" />
+
+    <!-- DiscouragedApi
+
+        Qt is using some discouraged API. They are allowed and are not deprecated, but they may be unfit
+        for common use (e.g. due to slow performance or subtle behavior). which we can't change, so ignore it.
+    -->
+    <issue id="DiscouragedApi">
+        <ignore path="**/QtLoader.java" />
+    </issue>
+</lint>

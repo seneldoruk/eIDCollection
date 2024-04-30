@@ -1,0 +1,41 @@
+AusweisApp 2.0.0
+^^^^^^^^^^^^^^^^
+
+**Releasedatum:** 6. November 2023
+
+
+Anwender
+""""""""
+- Umbenennung der AusweisApp2 zu AusweisApp.
+
+- Komplett überarbeitete grafische Oberfläche.
+
+- Dark-Mode wird auf allen Plattformen unterstützt.
+
+- Die Darstellung im Querformat wurde optimiert und wird nun automatisch eingestellt.
+
+- Berücksichtigung der Systemschriftgröße und Systemschriftart.
+
+- Optimierung der Bedienbarkeit der Titelleiste.
+
+- Online-Hilfe steht nicht mehr zur Verfügung.
+
+- Die Anbieterliste ist nicht mehr in der AusweisApp integriert, sondern wird über
+  das AusweisApp-Portal aufgerufen.
+
+- Verlauf der Authentisierungsvorgänge wurde entfernt.
+
+- PDF-Export-Funktion der Selbstauskunft wurde entfernt.
+
+- macOS Catalina 10.15 wird nicht mehr unterstützt.
+
+- Android 7 wird nicht mehr unterstützt.
+
+- iOS 13 wird nicht mehr unterstützt.
+
+
+Entwickler
+""""""""""
+- Aktualisierung von Qt auf die Version 6.5.3.
+
+- Aktualisierung von OpenSSL auf die Version 3.1.4.

@@ -1,0 +1,17 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "include": [
+    "presets/ci-android.json",
+    "presets/ci-bsd.json",
+    "presets/ci-linux.json",
+    "presets/ci-macOS.json",
+    "presets/ci-iOS.json",
+    "presets/ci-tools.json",
+    "presets/ci-windows.json"
+  ]
+}

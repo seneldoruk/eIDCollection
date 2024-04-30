@@ -1,0 +1,6 @@
+module MoreView
+
+internal MoreViewDiagnosis MoreViewDiagnosis.qml
+internal MoreViewGeneral MoreViewGeneral.qml
+
+MoreView 1.0 MoreView.qml

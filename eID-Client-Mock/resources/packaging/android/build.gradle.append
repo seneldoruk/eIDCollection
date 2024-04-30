@@ -1,0 +1,61 @@
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier = "sources"
+}
+
+dependencies {
+    implementation "androidx.core:core:1.12.0"
+}
+
+allprojects {
+    repositories {
+        maven {
+            url "https://maven.google.com"
+        }
+        maven {
+            url "https://repo.govkg.de/repository/maven-3rd-party"
+        }
+    }
+}
+
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        merges -= ['/META-INF/services/**']
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+        exclude 'META-INF/*.version'
+        exclude 'META-INF/*.properties'
+        exclude 'META-INF/*.kotlin_module'
+        exclude 'META-INF/kotlin*'
+        exclude 'META-INF/services/*'
+        exclude 'META-INF/native-image/**'
+        exclude 'META-INF/native/**'
+        exclude 'META-INF/license/**'
+        exclude '**/libplugins_tls_qcertonlybackend_*.so'
+        exclude '**/libplugins_networkinformation_*.so'
+        exclude '**/libplugins_imageformats_qgif_*.so'
+        exclude '**/libplugins_imageformats_qicns_*.so'
+        exclude '**/libplugins_imageformats_qico_*.so'
+        exclude '**/libplugins_imageformats_qtga_*.so'
+        exclude '**/libplugins_imageformats_qtiff_*.so'
+        exclude '**/libplugins_imageformats_qwebp_*.so'
+        exclude '**/libplugins_imageformats_qwbmp_*.so'
+
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
+    lintOptions {
+        lintConfig file('lint.xml')
+    }
+
+    defaultConfig {
+        buildConfigField("String", "ROOT_LOGGER", "\"${project.root_logger}\"")
+    }
+}

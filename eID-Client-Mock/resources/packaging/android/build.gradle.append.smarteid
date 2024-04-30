@@ -1,0 +1,3 @@
+dependencies {
+    runtimeOnly "de.bundesdruckerei.android.eid-applet-service-lib:eid-applet-service-lib:1.1.0"
+}
