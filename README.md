@@ -14,3 +14,6 @@ A SOAP server that implements useID and getResult functions for an eService to r
 
 ### eService-v1
 A simple web site with login and register functionality using email, password and JSON Web Token.
+
+### eService-v2
+Building on v1, this version integrates eID function using the eID-Server.
