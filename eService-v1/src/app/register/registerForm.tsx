@@ -24,6 +24,7 @@ import GenericFormField from "../genericFormField";
 import { registerSchema } from "./registerSchema";
 import Link from "next/link";
 import { registerAction } from "./registerActions";
+import { useRouter } from "next/router";
 
 export default function LoginForm() {
   const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -36,7 +37,12 @@ export default function LoginForm() {
     formdata.append("email", data.email);
     formdata.append("password", data.password);
     formdata.append("dateOfBirth", data.dateOfBirth);
-    console.log(await registerAction(formdata));
+    const res = await registerAction(formdata);
+    if (res.message === "success") {
+      window.location.href = "/login";
+    } else {
+      registerForm.setError("password", { message: res.message });
+    }
   };
   return (
     <>
@@ -44,7 +50,11 @@ export default function LoginForm() {
         <CardTitle>Register</CardTitle>
       </CardHeader>
       <Form {...registerForm}>
-        <form onSubmit={registerForm.handleSubmit(onSubmit)}>
+        <form
+          onSubmit={registerForm.handleSubmit((data) => {
+            onSubmit(data);
+          })}
+        >
           <CardContent>
             <div className="flex flex-row">
               <GenericFormField
