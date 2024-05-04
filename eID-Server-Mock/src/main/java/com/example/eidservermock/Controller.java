@@ -53,7 +53,8 @@ public class Controller {
     @ResponsePayload
     public JAXBElement<GetResultResponseType> getResult(@RequestPayload JAXBElement<GetResultRequestType> request) {
         var session = request.getValue().getSession().getID();
-        var resultAddress = repository.findById(new String(session)).get().refreshUrl + "&mode=json";
+        var sessionStr = TCTokenUtils.hexToAscii(session);
+        var resultAddress = repository.findById(sessionStr).get().refreshUrl + "&mode=json";
 
         RestClient restClient = RestClient.create();
         var resFromServer = restClient.get()
@@ -86,6 +87,9 @@ public class Controller {
         var dateOfBirth = new GeneralDateType();
         dateOfBirth.setDateString(personalData.dateOfBirth);
         res.setDateOfBirth(dateOfBirth);
+        var restrictedIdtype = new RestrictedIDType();
+        restrictedIdtype.setID("mock".getBytes());
+        res.setRestrictedID(restrictedIdtype);
         return res;
     }
 

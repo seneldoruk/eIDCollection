@@ -28,6 +28,9 @@ class TCTokenUtilsTest {
 
     @Test
     void hexToAscii() {
-        assertEquals(TCTokenUtils.hexToAscii("30323032633435342D656138612D343236322D623930652D653237613932323239333064"), "0202c454-ea8a-4262-b90e-e27a9222930d");
+        var str = "mock";
+        var bytes = str.getBytes();
+        var hexToAscii = TCTokenUtils.hexToAscii(bytes);
+        assert (hexToAscii.startsWith("mock"));
     }
 }

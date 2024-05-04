@@ -5,6 +5,7 @@ import org.apache.tomcat.util.buf.StringUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -48,8 +49,9 @@ public class TCTokenUtils {
         }
     }
 
-    public static String hexToAscii(String hexStr) {
-        StringBuilder output = new StringBuilder("");
+    public static String hexToAscii(byte[] bytes) {
+        var hexStr = new BigInteger(1, bytes).toString(16);
+        StringBuilder output = new StringBuilder();
 
         for (int i = 0; i < hexStr.length(); i += 2) {
             String str = hexStr.substring(i, i + 2);

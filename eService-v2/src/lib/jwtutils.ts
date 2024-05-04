@@ -19,3 +19,31 @@ export async function verifyJWT(token: string) {
   const res = await jose.jwtVerify(token, secret);
   return res.payload.sub;
 }
+
+export async function signeIDJWT(
+  name: string,
+  surname: string,
+  dateOfBirth: string
+) {
+  return await new jose.SignJWT({ "urn:example:claim": true })
+    .setSubject(
+      JSON.stringify({
+        name,
+        surname,
+        dateOfBirth,
+      })
+    )
+    .setProtectedHeader({ alg })
+    .setIssuedAt()
+    .setExpirationTime("5m")
+    .sign(secret);
+}
+
+export async function verifyeIDJWT(token: string) {
+  const res = await jose.jwtVerify(token, secret);
+  return JSON.parse(res.payload.sub!) as {
+    name: string;
+    surname: string;
+    dateOfBirth: string;
+  };
+}

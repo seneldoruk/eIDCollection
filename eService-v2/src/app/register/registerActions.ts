@@ -2,16 +2,21 @@
 import { db } from "@/db/db";
 import { registerSchema } from "./registerSchema";
 import { user } from "@/db/schema";
-import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { verifyeIDJWT } from "@/lib/jwtutils";
 
 export async function registerAction(data: FormData) {
   const obj = Object.fromEntries(data);
-  const parsed = registerSchema.safeParse(obj);
-  if (!parsed.success) {
-    return { message: parsed.error.errors };
+  const { data: formData, success, error } = registerSchema.safeParse(obj);
+  if (!success) {
+    return { message: error.errors };
   }
   try {
-    const res = await db.insert(user).values(parsed.data);
+    const { name, surname, dateOfBirth } = await verifyeIDJWT(
+      cookies().get("eid-jwt")?.value!
+    );
+    const data = { ...formData, name, surname, dateOfBirth };
+    const res = await db.insert(user).values(formData);
     console.log(res.changes);
     return { message: "success" };
   } catch (e: any) {

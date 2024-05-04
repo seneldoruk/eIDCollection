@@ -50,7 +50,11 @@ export default function LoginForm() {
           <CardFooter className={cn("flex flex-col")}>
             <Button className="w-full m-1">Login</Button>
             <Button variant="outline" asChild className="w-full m-1">
-              <Link href="/register">Register</Link>
+              <a
+                href={`http://127.0.0.1:24727/eID-Client?tcTokenURL=${window.location.origin}/api/tctoken`}
+              >
+                Register with eID
+              </a>
             </Button>
           </CardFooter>
         </form>
