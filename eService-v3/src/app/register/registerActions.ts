@@ -13,9 +13,9 @@ export async function registerAction(data: FormData) {
   }
   try {
     const { name, surname, dateOfBirth } = await verifyeIDJWT(
-      cookies().get("eid-jwt")?.value!
+      cookies().get("eid-jwt")?.value!,
     );
-    console.log("Inside register action: ", name, surname, dateOfBirth)
+    console.log("Inside register action: ", name, surname, dateOfBirth);
     const data = { ...formData, name, surname, dateOfBirth };
     const res = await db.insert(user).values(data);
     console.log(res.changes);

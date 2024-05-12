@@ -24,7 +24,7 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased flex align-middle items-center justify-center",
-          fontSans.variable
+          fontSans.variable,
         )}
       >
         <Card className="min-w-80 max-w-full">{children}</Card>

@@ -2,7 +2,7 @@
 import * as jose from "jose";
 
 const secret = new TextEncoder().encode(
-  "cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2"
+  "cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2",
 );
 const alg = "HS256";
 
@@ -23,7 +23,7 @@ export async function verifyJWT(token: string) {
 export async function signeIDJWT(
   name: string,
   surname: string,
-  dateOfBirth: string
+  dateOfBirth: string,
 ) {
   return await new jose.SignJWT({ "urn:example:claim": true })
     .setSubject(
@@ -31,7 +31,7 @@ export async function signeIDJWT(
         name,
         surname,
         dateOfBirth,
-      })
+      }),
     )
     .setProtectedHeader({ alg })
     .setIssuedAt()

@@ -7,8 +7,11 @@ export const dynamic = "force-dynamic"; // defaults to auto
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
-  if(!searchParams.has("ResultMajor")){
-    return NextResponse.json({}, { status: 302, headers: { Location: request.url }});
+  if (!searchParams.has("ResultMajor")) {
+    return NextResponse.json(
+      {},
+      { status: 302, headers: { Location: request.url } },
+    );
   }
 
   const sessionID = searchParams.get("session")!;
