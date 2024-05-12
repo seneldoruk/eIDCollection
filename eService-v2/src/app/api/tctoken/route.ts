@@ -8,7 +8,7 @@ export async function GET(request: Request) {
     "https://prodpaos.governikus-eid.de:443/ecardpaos/paosreceiver";
   const refreshAddress = new URL(
     `/api/authcomplete?session=${session}`,
-    request.url
+    request.url,
   ).toString();
 
   const token = Buffer.from(`<TCTokenType>

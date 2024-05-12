@@ -29,7 +29,7 @@ const useIDRequest = `<?xml version="1.0" encoding="UTF-8"?>
 </soapenv:Envelope>`;
 
 const getResultRequest = (
-  session: string
+  session: string,
 ) => `<?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 	xmlns:eid="http://bsi.bund.de/eID/">
@@ -59,11 +59,12 @@ const soapRequest = async (body: string) => {
 export const getXMLValue = (xml: string, tag: string, wrappedBy: string) => {
   const xmlStartingWithWrapper = xml.substring(
     xml.indexOf(wrappedBy) + wrappedBy.length + 1,
-    xml.length
+    xml.length,
   );
   const startIndex =
     xmlStartingWithWrapper.indexOf(`:${tag}>`) + tag.length + 2;
-  const endIndex = xmlStartingWithWrapper.substring(startIndex).indexOf(`</`)+startIndex;
+  const endIndex =
+    xmlStartingWithWrapper.substring(startIndex).indexOf(`</`) + startIndex;
   console.log(startIndex, endIndex);
   return xmlStartingWithWrapper.substring(startIndex, endIndex);
 };
@@ -100,6 +101,8 @@ export const getResult = async (session: string) => {
   console.log(res);
   const name = getXMLValue(res, "GivenNames", "PersonalData");
   const surname = getXMLValue(res, "FamilyNames", "PersonalData");
-  const dateOfBirth = getXMLValue(res, "DateString", "DateOfBirth").split("+")[0];
+  const dateOfBirth = getXMLValue(res, "DateString", "DateOfBirth").split(
+    "+",
+  )[0];
   return { name, surname, dateOfBirth };
 };
