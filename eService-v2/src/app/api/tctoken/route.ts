@@ -9,7 +9,6 @@ export async function GET(request: Request) {
   const refreshAddress = new URL(
     `/api/authcomplete?session=${session}`,
     request.url
-    // "https://www.google.com/"
   ).toString();
 
   const token = Buffer.from(`<TCTokenType>

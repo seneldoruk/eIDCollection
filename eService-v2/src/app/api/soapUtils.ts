@@ -1,4 +1,4 @@
-import "./envConfig.ts";
+import "../../envConfig";
 
 const useIDRequest = `<?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
@@ -7,30 +7,10 @@ const useIDRequest = `<?xml version="1.0" encoding="UTF-8"?>
 	<soapenv:Body>
 		<eid:useIDRequest>
 			<eid:UseOperations>
-				<eid:DocumentType>REQUIRED</eid:DocumentType>
-				<eid:IssuingState>REQUIRED</eid:IssuingState>
-				<eid:DateOfExpiry>REQUIRED</eid:DateOfExpiry>
 				<eid:GivenNames>REQUIRED</eid:GivenNames>
 				<eid:FamilyNames>REQUIRED</eid:FamilyNames>
-				<eid:ArtisticName>ALLOWED</eid:ArtisticName>
-				<eid:AcademicTitle>ALLOWED</eid:AcademicTitle>
 				<eid:DateOfBirth>REQUIRED</eid:DateOfBirth>
-				<eid:PlaceOfBirth>REQUIRED</eid:PlaceOfBirth>
-				<eid:Nationality>REQUIRED</eid:Nationality>
-				<eid:BirthName>REQUIRED</eid:BirthName>
-				<eid:PlaceOfResidence>REQUIRED</eid:PlaceOfResidence>
-				<eid:CommunityID />
-				<eid:ResidencePermitI />
-				<eid:RestrictedID>REQUIRED</eid:RestrictedID>
-				<eid:AgeVerification>REQUIRED</eid:AgeVerification>
-				<eid:PlaceVerification>REQUIRED</eid:PlaceVerification>
 			</eid:UseOperations>
-			<eid:AgeVerificationRequest>
-				<eid:Age>18</eid:Age>
-			</eid:AgeVerificationRequest>
-			<eid:PlaceVerificationRequest>
-				<eid:CommunityID>027605</eid:CommunityID>
-			</eid:PlaceVerificationRequest>
 			<eid:TransactionAttestationRequest>
 				<eid:TransactionAttestationFormat>
 					http://bsi.bund.de/eID/ExampleAttestationFormat
@@ -76,14 +56,15 @@ const soapRequest = async (body: string) => {
   return res.text();
 };
 
-const getXMLValue = (xml: string, tag: string, wrappedBy: string) => {
+export const getXMLValue = (xml: string, tag: string, wrappedBy: string) => {
   const xmlStartingWithWrapper = xml.substring(
     xml.indexOf(wrappedBy) + wrappedBy.length + 1,
     xml.length
   );
   const startIndex =
     xmlStartingWithWrapper.indexOf(`:${tag}>`) + tag.length + 2;
-  const endIndex = xmlStartingWithWrapper.indexOf(`</`);
+  const endIndex = xmlStartingWithWrapper.substring(startIndex).indexOf(`</`)+startIndex;
+  console.log(startIndex, endIndex);
   return xmlStartingWithWrapper.substring(startIndex, endIndex);
 };
 
@@ -116,8 +97,9 @@ export const useID = async () => {
 export const getResult = async (session: string) => {
   const hexSession = ascii_to_hex(session);
   const res = await soapRequest(getResultRequest(session));
+  console.log(res);
   const name = getXMLValue(res, "GivenNames", "PersonalData");
   const surname = getXMLValue(res, "FamilyNames", "PersonalData");
-  const dateOfBirth = getXMLValue(res, "DateOfBirth", "DateOfBirth");
+  const dateOfBirth = getXMLValue(res, "DateString", "DateOfBirth").split("+")[0];
   return { name, surname, dateOfBirth };
 };
