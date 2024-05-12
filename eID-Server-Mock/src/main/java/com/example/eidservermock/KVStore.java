@@ -8,6 +8,7 @@ public class KVStore {
     String refreshUrl;
     @Id
     String sessionID;
+
     public KVStore(String refreshUrl, String sessionID) {
         this.refreshUrl = refreshUrl;
         this.sessionID = sessionID;

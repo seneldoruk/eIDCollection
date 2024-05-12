@@ -1,7 +1,8 @@
 package com.example.eidservermock;
 
-import com.fasterxml.jackson.annotation.JsonProperty; // version 2.11.1
-class OperationsAllowedByUser{
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+class OperationsAllowedByUser {
     @JsonProperty("DocumentType")
     public String documentType;
     @JsonProperty("IssuingState")
@@ -36,7 +37,7 @@ class OperationsAllowedByUser{
     public String placeVerification;
 }
 
-class PersonalData{
+class PersonalData {
     @JsonProperty("DocumentType")
     public String documentType;
     @JsonProperty("IssuingState")
@@ -63,22 +64,22 @@ class PersonalData{
     public String dateOfBirth;
 }
 
-class PlaceOfBirth{
+class PlaceOfBirth {
     @JsonProperty("FreetextPlace")
     public String freetextPlace;
 }
 
-class PlaceOfResidence{
+class PlaceOfResidence {
     @JsonProperty("StructuredPlace")
     public StructuredPlace structuredPlace;
 }
 
-class Result{
+class Result {
     @JsonProperty("ResultMajor")
     public String resultMajor;
 }
 
-public class ResultDTO{
+public class ResultDTO {
     @JsonProperty("PersonalData")
     public PersonalData personalData;
     @JsonProperty("OperationsAllowedByUser")
@@ -87,7 +88,7 @@ public class ResultDTO{
     public Result result;
 }
 
-class StructuredPlace{
+class StructuredPlace {
     @JsonProperty("Street")
     public String street;
     @JsonProperty("City")

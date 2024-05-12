@@ -11,24 +11,24 @@ import wsdl.oasis.names.tc.dss._1_0.core.schema.Result;
 
 import javax.xml.namespace.QName;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 @Endpoint
 public class Controller {
+    private static final String NAMESPACE_URI = "http://bsi.bund.de/eID/";
     StoreRepository repository;
+
     public Controller(StoreRepository repository
     ) {
         this.repository = repository;
     }
-    private static final String NAMESPACE_URI = "http://bsi.bund.de/eID/";
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "useIDRequest")
     @ResponsePayload
     public JAXBElement<UseIDResponseType> useID(@RequestPayload JAXBElement<UseIDRequestType> request) {
         var res = new UseIDResponseType();
         var token = TCTokenUtils.getTCTokenFields();
-        System.out.println("token: " + token.toString());
-        repository.save(new KVStore(token.refreshAddress(),token.session()));
+        System.out.println("token: " + token);
+        repository.save(new KVStore(token.refreshAddress(), token.session()));
 
 
         res.setECardServerAddress(token.serverAddress());

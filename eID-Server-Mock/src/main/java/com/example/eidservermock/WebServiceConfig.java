@@ -22,6 +22,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
+
     @Bean(name = "eIDServer")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema eIDServerSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
@@ -31,6 +32,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         wsdl11Definition.setSchema(eIDServerSchema);
         return wsdl11Definition;
     }
+
     @Bean
     public XsdSchema eIDServerSchema() {
         return new SimpleXsdSchema(new ClassPathResource("static/wsdl/TR-03130eID-Server.xsd"));
