@@ -1,7 +1,6 @@
 AusweisApp
 ==========
 Diffs to the original code can be found in DIFF.md
-
 Kontakt
 -------
 | Governikus GmbH & Co. KG
