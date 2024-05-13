@@ -26,29 +26,33 @@ const LabelAndInput = ({
 
 export default async function Home() {
   const jwt = cookies().get("jwt")?.value;
-  const verifiedEmail = jwt ? await verifyJWT(jwt) : null;
-  if (!verifiedEmail) {
+  if (!jwt) redirect("/login");
+
+  const { email: verifiedEmail, factor } = await verifyJWT(jwt);
+  if (!verifiedEmail || factor !== 2) {
     redirect("/login");
-  } else {
-    const { name, surname, email, dateOfBirth } = (
-      await db.select().from(user).where(eq(user.email, verifiedEmail))
-    )[0];
-    return (
-      <>
-        <CardHeader>
-          <CardTitle>Your Data</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-row">
-            <LabelAndInput label="Name" value={name!} className="mr-1" />
-            <LabelAndInput label="Surname" value={surname!} />
-          </div>
-          <div className="flex flex-row">
-            <LabelAndInput label="Email" value={email!} className="mr-1" />
-            <LabelAndInput label="Date of Birth" value={dateOfBirth!} />
-          </div>
-        </CardContent>
-      </>
-    );
   }
+  const dbuser = (
+    await db.select().from(user).where(eq(user.email, verifiedEmail))
+  )[0];
+  if (!dbuser) return redirect("/login");
+  const { name, surname, email, dateOfBirth } = dbuser;
+
+  return (
+    <>
+      <CardHeader>
+        <CardTitle>Your Data</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-row">
+          <LabelAndInput label="Name" value={name!} className="mr-1" />
+          <LabelAndInput label="Surname" value={surname!} />
+        </div>
+        <div className="flex flex-row">
+          <LabelAndInput label="Email" value={email!} className="mr-1" />
+          <LabelAndInput label="Date of Birth" value={dateOfBirth!} />
+        </div>
+      </CardContent>
+    </>
+  );
 }

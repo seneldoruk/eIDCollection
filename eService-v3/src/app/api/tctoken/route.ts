@@ -1,13 +1,16 @@
+import { NextRequest } from "next/server";
 import { useID } from "../soapUtils";
 
 export const dynamic = "force-dynamic"; // defaults to auto
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { session, psk } = await useID();
 
   const serverAddress =
     "https://prodpaos.governikus-eid.de:443/ecardpaos/paosreceiver";
+
+  const tctokenfor = request.nextUrl.searchParams.get("for");
   const refreshAddress = new URL(
-    `/api/authcomplete?session=${session}`,
+    `/api/${tctokenfor === "login" ? "logincomplete" : "authcomplete"}?session=${session}`,
     request.url,
   ).toString();
 

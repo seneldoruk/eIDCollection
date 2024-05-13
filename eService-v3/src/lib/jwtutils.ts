@@ -6,18 +6,21 @@ const secret = new TextEncoder().encode(
 );
 const alg = "HS256";
 
-export async function signJWT(email: string) {
+export async function signJWT(email: string, factor: number) {
   return await new jose.SignJWT({ "urn:example:claim": true })
-    .setSubject(email)
+    .setSubject(JSON.stringify({ email, factor }))
     .setProtectedHeader({ alg })
     .setIssuedAt()
-    .setExpirationTime("1d")
+    .setExpirationTime(factor === 1 ? "5m" : "1d")
     .sign(secret);
 }
 
 export async function verifyJWT(token: string) {
   const res = await jose.jwtVerify(token, secret);
-  return res.payload.sub;
+  return JSON.parse(res.payload.sub!) as {
+    email: string;
+    factor: number;
+  };
 }
 
 export async function signeIDJWT(

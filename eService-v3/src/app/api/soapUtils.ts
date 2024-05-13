@@ -65,7 +65,6 @@ export const getXMLValue = (xml: string, tag: string, wrappedBy: string) => {
     xmlStartingWithWrapper.indexOf(`:${tag}>`) + tag.length + 2;
   const endIndex =
     xmlStartingWithWrapper.substring(startIndex).indexOf(`</`) + startIndex;
-  console.log(startIndex, endIndex);
   return xmlStartingWithWrapper.substring(startIndex, endIndex);
 };
 
@@ -88,7 +87,6 @@ export function ascii_to_hex(str: string) {
 
 export const useID = async () => {
   const res = await soapRequest(useIDRequest);
-  console.log("useID:", res);
   const session = hex_to_ascii(getXMLValue(res, "ID", "Session"));
   const psk = getXMLValue(res, "ID", "PSK");
 
@@ -98,7 +96,6 @@ export const useID = async () => {
 export const getResult = async (session: string) => {
   const hexSession = ascii_to_hex(session);
   const res = await soapRequest(getResultRequest(session));
-  console.log(res);
   const name = getXMLValue(res, "GivenNames", "PersonalData");
   const surname = getXMLValue(res, "FamilyNames", "PersonalData");
   const dateOfBirth = getXMLValue(res, "DateString", "DateOfBirth").split(

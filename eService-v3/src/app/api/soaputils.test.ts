@@ -56,6 +56,5 @@ test("DateOfBirth", () => {
   const tag = "DateString";
   const wrappedBy = "DateOfBirth";
   const res = getXMLValue(xml, tag, wrappedBy).split("+")[0];
-  console.log(res);
   expect(res).toBe("2024-06-10");
 });

@@ -11,7 +11,7 @@ export async function loginAction(data: FormData) {
   const obj = Object.fromEntries(data);
   const parsed = loginSchema.safeParse(obj);
   if (!parsed.success) {
-    return parsed.error.errors;
+    return { message: parsed.error.errors };
   }
   const userInDb = (
     await db.select().from(user).where(eq(user.email, parsed.data.email))
@@ -20,7 +20,7 @@ export async function loginAction(data: FormData) {
   if (userInDb.password !== parsed.data.password) {
     return { message: "Invalid password" };
   }
-  const jwt = await signJWT(userInDb.email);
+  const jwt = await signJWT(userInDb.email, 1);
   cookies().set("jwt", jwt);
-  redirect("/");
+  return { message: "success" };
 }

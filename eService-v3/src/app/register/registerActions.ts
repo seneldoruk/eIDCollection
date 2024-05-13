@@ -18,7 +18,7 @@ export async function registerAction(data: FormData) {
     console.log("Inside register action: ", name, surname, dateOfBirth);
     const data = { ...formData, name, surname, dateOfBirth };
     const res = await db.insert(user).values(data);
-    console.log(res.changes);
+    console.log("Db changes:", res.changes);
     return { message: "success" };
   } catch (e: any) {
     return { message: e.message };

@@ -27,6 +27,10 @@ export default function LoginForm() {
     formdata.append("email", data.email);
     formdata.append("password", data.password);
     const res = await loginAction(formdata);
+    if (res.message === "success") {
+      window.location.href = `http://127.0.0.1:24727/eID-Client?tcTokenURL=${window.location.origin}/api/tctoken?for=login`;
+      return;
+    }
     loginForm.setError("password", {
       type: "custom",
       message: (res as any).message,
